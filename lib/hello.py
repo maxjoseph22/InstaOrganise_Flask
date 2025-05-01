@@ -1,4 +1,9 @@
 from flask import Flask
+from lib.dog_repository import DogRepository
+from lib.breed_repository import BreedRepository
+import os
+from flask import Flask, request, render_template, redirect, session
+from lib.database_connection import get_flask_database_connection
 
 app = Flask(__name__)
 
@@ -8,7 +13,11 @@ def homepage_welcome():
 
 @app.route("/leaderboard")
 def leaderboard():
-    return "<p>Welcome to the dogist leaderboard!</p>"
+    connection = get_flask_database_connection(app)
+    dog_repository = DogRepository(connection)
+    breed_repository = BreedRepository(connection)
+    return "\n".join(dog_repository.get_breed_popularity())
+
 
 @app.route("/dog")
 def dog():
