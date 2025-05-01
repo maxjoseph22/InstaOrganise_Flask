@@ -70,4 +70,4 @@ def individual_dog(dog_id):
     return "Welcome to the specific dog page for dog " + str(dog_id)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True, host="127.0.0.1", port=5000)
