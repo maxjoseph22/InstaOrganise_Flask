@@ -9,3 +9,6 @@ def homepage_welcome():
 @app.route("/leaderboard")
 def leaderboard():
     return "<p>Welcome to the dogist leaderboard!</p>"
+
+if __name__ == '__main__':
+    app.run()
