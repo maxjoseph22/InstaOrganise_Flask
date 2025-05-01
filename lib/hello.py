@@ -11,13 +11,55 @@ app = Flask(__name__)
 def homepage_welcome():
     return "<p>Welcome to The Dogist! What would you like to do?</p>"
 
-@app.route("/leaderboard")
-def leaderboard():
+@app.route("/breedleaderboard")
+def breed_leaderboard():
     connection = get_flask_database_connection(app)
     dog_repository = DogRepository(connection)
     breed_repository = BreedRepository(connection)
     return "\n".join(dog_repository.get_breed_popularity())
 
+@app.route("/nameleaderboard")
+def name_leaderboard():
+    connection = get_flask_database_connection(app)
+    dog_repository = DogRepository(connection)
+    breed_repository = BreedRepository(connection)
+    return "\n".join(dog_repository.get_name_popularity())
+
+@app.route("/dog/<dog_breed>")
+def search_by_breed(dog_breed):
+    connection = get_flask_database_connection(app)
+    dog_repository = DogRepository(connection)
+    breed_repository = BreedRepository(connection)
+    return dog_repository.find_by_breed(dog_breed)
+
+# THIS ISN'T WORKING AS EXPECTED, NOT GETTING AN ERROR BUT THE SERVER ISN'T DISPLAYING THE DOGS WITH MATCHING NAMES. JUST BLANK
+@app.route("/dog/<dog_name>")
+def search_by_name(dog_name):
+    connection = get_flask_database_connection(app)
+    dog_repository = DogRepository(connection)
+    breed_repository = BreedRepository(connection)
+    return dog_repository.find_by_name(dog_name)
+
+@app.route("/breeds")
+def display_all_breeds():
+    connection = get_flask_database_connection(app)
+    dog_repository = DogRepository(connection)
+    breed_repository = BreedRepository(connection)
+    return "\n".join(breed_repository.get_breed_alphabetically())
+    
+@app.route("/neverseen")
+def display_never_seen_breeds():
+    connection = get_flask_database_connection(app)
+    dog_repository = DogRepository(connection)
+    breed_repository = BreedRepository(connection)  
+    return breed_repository.all_zeros()
+
+@app.route("/randomdog")
+def display_random_dog():
+    connection = get_flask_database_connection(app)
+    dog_repository = DogRepository(connection)
+    breed_repository = BreedRepository(connection)  
+    return dog_repository.random_dog()
 
 @app.route("/dog")
 def dog():
