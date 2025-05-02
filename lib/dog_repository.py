@@ -38,17 +38,17 @@ class DogRepository:
     # Retrieve popularity by likes
     def get_likes_popularity(self):
         rows = self._connection.execute(
-            'SELECT breed, COUNT(*) AS count FROM dogs GROUP BY breed ORDER BY count DESC'
+            'SELECT name, likes, link_to_post FROM dogs ORDER BY likes DESC'
         )
         result = []
         for row in rows:
-            result.append(f"{row['breed']}, {row['count']}")
+            result.append(f"{row['name']}, {row['likes']}, {row['link_to_post']}")
         return result
     
     # Retrieve name popularity
     def get_name_popularity(self):
         rows = self._connection.execute(
-            'SELECT name, COUNT(*) AS count FROM dogs GROUP BY name ORDER BY count ASC'
+            'SELECT name, COUNT(*) AS count FROM dogs GROUP BY name ORDER BY count DESC'
         )
         result = []
         for row in rows:

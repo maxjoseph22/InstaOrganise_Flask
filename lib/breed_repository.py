@@ -30,7 +30,7 @@ class BreedRepository:
             'SELECT breed_name, count FROM breeds ORDER BY count DESC'
         )
         return [f"{row['breed_name']}, {row['count']}" for row in rows]
-        
+     
     # Find dogs by breed
 
     def find_by_specific_breed(self, breed_name):
