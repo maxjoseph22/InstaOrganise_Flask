@@ -22,7 +22,10 @@ class BreedRepository:
         rows = self._connection.execute(
             'SELECT breed_name, count FROM breeds ORDER BY breed_name ASC'
         )
-        return [f"{row['breed_name']}, {row['count']}" for row in rows]
+        return [
+            {"breed_name": row["breed_name"], "count": row["count"]}
+            for row in rows
+        ]
     
     # Retrieve breed popularity
     def get_breed_popularity(self):

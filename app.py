@@ -11,21 +11,6 @@ app = Flask(__name__)
 def homepage_welcome():
     return render_template("homepage.html")
 
-# @app.route("/")
-# def homepage_welcome():
-#     return """
-#     <h1>Welcome to The Dogist!</h1>
-#     <p>What would you like to do?</p>
-#     <ul>
-#         <li><a href="/breedleaderboard">View Breed Leaderboard</a></li>
-#         <li><a href="/nameleaderboard">View Name Leaderboard</a></li>
-#         <li><a href="/likesleaderboard">View Likes Leaderboard</a></li>
-#         <li><a href="/breeds">View All Breeds</a></li>
-#         <li><a href="/neverseen">View Never Seen Breeds</a></li>
-#         <li><a href="/randomdog">View a Random Dog</a></li>
-#     </ul>
-#     """
-
 @app.route("/breedleaderboard")
 def breed_leaderboard():
     connection = get_flask_database_connection(app)
