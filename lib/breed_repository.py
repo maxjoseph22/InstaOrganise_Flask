@@ -79,22 +79,23 @@ class BreedRepository:
 
     # Retrieve all breeds with zero count i.e. never seen
     def all_zeros(self):
-        rows = self._connection.execute('SELECT * FROM breeds WHERE count = 0')
-        readable_breeds = []
-        for row in rows:
-            item = Breed(
-                row["id"], row["breed_name"], row["count"],
-            )
-            readable_breeds.append(item)
+        return self._connection.execute('SELECT * FROM breeds WHERE count = 0')
+    
+    #     readable_breeds = []
+    #     for row in rows:
+    #         item = Breed(
+    #             row["id"], row["breed_name"], row["count"],
+    #         )
+    #         readable_breeds.append(item)
         
-        readable_breeds = "".join(
-        f"""
-        Breed name: {breed.breed_name}
-        Count: {breed.count}
-        """
-        for breed in readable_breeds
-    )
-        return readable_breeds
+    #     readable_breeds = "".join(
+    #     f"""
+    #     Breed name: {breed.breed_name}
+    #     Count: {breed.count}
+    #     """
+    #     for breed in readable_breeds
+    # )
+    #     return readable_breeds
     
     # Delete a breed entry
     def delete(self, id):
