@@ -25,14 +25,15 @@ class DogRepository:
             dogs.append(item)
         return dogs
     
-    # Retrieve breed popularity
+  
+  
     def get_breed_popularity(self):
         rows = self._connection.execute(
             'SELECT breed, COUNT(*) AS count FROM dogs GROUP BY breed ORDER BY count DESC'
         )
         result = []
         for row in rows:
-            result.append(f"{row['breed']}, {row['count']}")
+            result.append({"breed": row["breed"], "count": row["count"]})
         return result
     
     # Retrieve popularity by likes
@@ -42,7 +43,11 @@ class DogRepository:
         )
         result = []
         for row in rows:
-            result.append(f"{row['name']}, {row['likes']}, {row['link_to_post']}")
+            result.append({
+                "name": row["name"],
+                "likes": row["likes"],
+                "link_to_post": row["link_to_post"]
+            })
         return result
     
     # Retrieve name popularity
@@ -52,7 +57,10 @@ class DogRepository:
         )
         result = []
         for row in rows:
-            result.append(f"{row['name']}, {row['count']}")
+            result.append({
+                "name": row["name"],
+                "count": row["count"]
+            })
         return result
     
     # Find a dog by ID
