@@ -15,13 +15,15 @@ def homepage_welcome():
 def breed_leaderboard():
     connection = get_flask_database_connection(app)
     dog_repository = DogRepository(connection)
-    return dog_repository.get_breed_popularity()
+    breeds = dog_repository.get_breed_popularity()
+    return render_template("breed_leaderboard.html", breeds=breeds)
 
 @app.route("/nameleaderboard")
 def name_leaderboard():
     connection = get_flask_database_connection(app)
     dog_repository = DogRepository(connection)
-    return dog_repository.get_name_popularity()
+    names = dog_repository.get_name_popularity()
+    return render_template("name_leaderboard.html", names=names)
 
 @app.route("/likesleaderboard")
 def likes_leaderboard():

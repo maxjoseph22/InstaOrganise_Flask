@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Breed Leaderboard</title>
+    <title>Name Leaderboard</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -32,19 +32,19 @@
     </style>
 </head>
 <body>
-    <h1>Breed Leaderboard</h1>
+    <h1>Name Leaderboard</h1>
     <table>
         <thead>
             <tr>
-                <th>Breed</th>
+                <th>Name</th>
                 <th>Count</th>
             </tr>
         </thead>
         <tbody>
-            {% for breed in breeds %}
+            {% for name in names %}
             <tr>
-                <td>{{ breed.breed }}</td>
-                <td>{{ breed.count }}</td>
+                <td>{{ name.name }}</td>
+                <td>{{ name.count }}</td>
             </tr>
             {% endfor %}
         </tbody>
