@@ -29,7 +29,8 @@ def name_leaderboard():
 def likes_leaderboard():
     connection = get_flask_database_connection(app)
     dog_repository = DogRepository(connection)
-    return dog_repository.get_likes_popularity()
+    likes = dog_repository.get_likes_popularity()
+    return render_template("likes_leaderboard.html", likes=likes)
 
 @app.route("/dog/<dog_breed>")
 def search_by_breed(dog_breed):
