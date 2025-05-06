@@ -49,8 +49,9 @@ def search_by_name(dog_name):
 def display_all_breeds():
     connection = get_flask_database_connection(app)
     breed_repository = BreedRepository(connection)
-    return breed_repository.get_breed_alphabetically()
-    
+    breeds = breed_repository.get_breed_alphabetically()
+    return render_template("alphabetical_breeds.html", breeds=breeds)
+        
 @app.route("/neverseen")
 def display_never_seen_breeds():
     connection = get_flask_database_connection(app)
