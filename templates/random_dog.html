@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to The Dogist!</title>
+    <title>Random Dog</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -14,34 +14,70 @@
             text-align: center;
             color: #333;
         }
-        p {
-            text-align: center;
+        table {
+            width: 50%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: white;
         }
-        ul {
-            list-style-type: none;
-            padding: 0;
-            max-width: 400px;
-            margin: 0 auto;
-        }
-        li {
-            margin: 10px 0;
-        }
-        a {
-            display: block;
+        th, td {
             padding: 10px;
-            background-color: #007BFF;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            text-align: center;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
         }
-        a:hover {
-            background-color: #0056b3;
+        th {
+            background-color: #f4f4f4;
         }
     </style>
 </head>
 <body>
-    <h1>Here's a random dog from the archives!</h1>
-    
+    <h1>Here's a Random Dog from the Archives</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Breed</th>
+                <th>Purebred</th>
+                <th>Mix</th>
+                <th>Age</th>
+                <th>Sex</th>
+                <th>Location</th>
+                <th>Personality</th>
+                <th>Likes</th>
+                <th>Comments</th>
+                <th>Link to Post</th>
+                <th>Video</th>
+                <th>Date Posted</th>
+                <th>Photo URL</th>
+                <th>Breed ID</th>
+                <th>Cross Breed ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for dog in dogs %}
+            <tr>
+                <td>{{ dog.id }}</td>
+                <td>{{ dog.name }}</td>
+                <td>{{ dog.breed }}</td>
+                <td>{{ dog.purebreed }}</td>
+                <td>{{ dog.mix }}</td>
+                <td>{{ dog.age }}</td>
+                <td>{{ dog.sex }}</td>
+                <td>{{ dog.location }}</td>
+                <td>{{ dog.personality }}</td>
+                <td>{{ dog.likes }}</td>
+                <td>{{ dog.comments }}</td>
+                <td>{{ dog.link_to_post }}</td>
+                <td>{{ dog.video }}</td>
+                <td>{{ dog.date_posted }}</td>
+                <td>{{ dog.photo }}</td>
+                <td>{{ dog.breed_id }}</td>
+                <td>{{ dog.cross_breed_id }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </body>
 </html>

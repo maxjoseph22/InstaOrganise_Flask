@@ -63,7 +63,8 @@ def display_never_seen_breeds():
 def display_random_dog():
     connection = get_flask_database_connection(app)
     dog_repository = DogRepository(connection)
-    return dog_repository.random_dog()
+    dogs = dog_repository.random_dog()
+    return render_template("random_dog.html", dogs=dogs)
 
 @app.route("/dog")
 def dog():

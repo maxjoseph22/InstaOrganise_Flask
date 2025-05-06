@@ -250,6 +250,8 @@ class DogRepository:
                 row["likes"], row["comments"], row["link_to_post"], row["video"], row["date_posted"], row["photo"], row["breed_id"], row["cross_breed_id"]
             )
             dogs.append(item)
+
+        return dogs
         
         readable_dogs = "\n\n".join(
         f"""
