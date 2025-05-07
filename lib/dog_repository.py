@@ -75,7 +75,7 @@ class DogRepository:
     
     # Find dogs by name
     def find_by_name(self, name):
-        rows = self._connection.execute('SELECT * FROM dogs WHERE name LIKE %s', [f'%{name}%'])
+        rows = self._connection.execute('SELECT * FROM dogs WHERE UPPER(name) LIKE UPPER(%s)', [f'%{name}%'])
         dogs = []
         for row in rows:
             item = Dog(
@@ -87,34 +87,34 @@ class DogRepository:
 
         return dogs
         
-    #     readable_dogs = "\n\n".join(
-    #     f"""
-    #     ID: {dog.id}
-    #     Name: {dog.name}
-    #     Breed: {dog.breed}
-    #     Purebred: {"Yes" if dog.purebreed else "No"}
-    #     Mix: {dog.mix}
-    #     Age: {dog.age}
-    #     Sex: {dog.sex}
-    #     Location: {dog.location}
-    #     Personality: {dog.personality}
-    #     Likes: {dog.likes}
-    #     Comments: {dog.comments}
-    #     Link to Post: {dog.link_to_post}
-    #     Video: {dog.video}
-    #     Date Posted: {dog.date_posted}
-    #     Photo URL: {dog.photo}
-    #     Breed ID: {dog.breed_id}
-    #     """
-    #     for dog in dogs
-    # )
+        readable_dogs = "\n\n".join(
+        f"""
+        ID: {dog.id}
+        Name: {dog.name}
+        Breed: {dog.breed}
+        Purebred: {"Yes" if dog.purebreed else "No"}
+        Mix: {dog.mix}
+        Age: {dog.age}
+        Sex: {dog.sex}
+        Location: {dog.location}
+        Personality: {dog.personality}
+        Likes: {dog.likes}
+        Comments: {dog.comments}
+        Link to Post: {dog.link_to_post}
+        Video: {dog.video}
+        Date Posted: {dog.date_posted}
+        Photo URL: {dog.photo}
+        Breed ID: {dog.breed_id}
+        """
+        for dog in dogs
+    )
 
-    #     return readable_dogs
+        return readable_dogs
         
         
     # Find dogs by breed
     def find_by_breed(self, breed):
-        rows = self._connection.execute('SELECT * FROM dogs WHERE breed LIKE %s', [f'%{breed}%'])
+        rows = self._connection.execute('SELECT * FROM dogs WHERE UPPER(breed) LIKE UPPER(%s)', [f'%{breed}%'])
         dogs = []
         for row in rows:
             item = Dog(

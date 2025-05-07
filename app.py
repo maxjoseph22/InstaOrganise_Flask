@@ -65,13 +65,13 @@ def search_by_name():
         dogs = dog_repository.find_by_name(name)
         return render_template("search_by_name_results.html", dogs=dogs, name=name)
 
-    return render_template("search_by_breed.html")
+    return render_template("search_by_name.html")
 
-@app.route("/dog/<dog_name>")
-def search_by_dog_name(dog_name):
-    connection = get_flask_database_connection(app)
-    dog_repository = DogRepository(connection)
-    return dog_repository.find_by_name(dog_name)
+# @app.route("/dog/<dog_name>")
+# def search_by_dog_name(dog_name):
+#     connection = get_flask_database_connection(app)
+#     dog_repository = DogRepository(connection)
+#     return dog_repository.find_by_name(dog_name)
 
 @app.route("/breeds")
 def display_all_breeds():
