@@ -84,30 +84,32 @@ class DogRepository:
                 row["likes"], row["comments"], row["link_to_post"], row["video"], row["date_posted"], row["photo"], row["breed_id"]
             )
             dogs.append(item)
-        
-        readable_dogs = "\n\n".join(
-        f"""
-        ID: {dog.id}
-        Name: {dog.name}
-        Breed: {dog.breed}
-        Purebred: {"Yes" if dog.purebreed else "No"}
-        Mix: {dog.mix}
-        Age: {dog.age}
-        Sex: {dog.sex}
-        Location: {dog.location}
-        Personality: {dog.personality}
-        Likes: {dog.likes}
-        Comments: {dog.comments}
-        Link to Post: {dog.link_to_post}
-        Video: {dog.video}
-        Date Posted: {dog.date_posted}
-        Photo URL: {dog.photo}
-        Breed ID: {dog.breed_id}
-        """
-        for dog in dogs
-    )
 
-        return readable_dogs
+        return dogs
+        
+    #     readable_dogs = "\n\n".join(
+    #     f"""
+    #     ID: {dog.id}
+    #     Name: {dog.name}
+    #     Breed: {dog.breed}
+    #     Purebred: {"Yes" if dog.purebreed else "No"}
+    #     Mix: {dog.mix}
+    #     Age: {dog.age}
+    #     Sex: {dog.sex}
+    #     Location: {dog.location}
+    #     Personality: {dog.personality}
+    #     Likes: {dog.likes}
+    #     Comments: {dog.comments}
+    #     Link to Post: {dog.link_to_post}
+    #     Video: {dog.video}
+    #     Date Posted: {dog.date_posted}
+    #     Photo URL: {dog.photo}
+    #     Breed ID: {dog.breed_id}
+    #     """
+    #     for dog in dogs
+    # )
+
+    #     return readable_dogs
         
         
     # Find dogs by breed
