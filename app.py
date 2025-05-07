@@ -32,12 +32,12 @@ def likes_leaderboard():
     likes = dog_repository.get_likes_popularity()
     return render_template("likes_leaderboard.html", likes=likes)
 
-@app.route("/dog/<dog_breed>")
-def search_by_breed(dog_breed):
+@app.route("/searchbybreed/<breed>")
+def search_by_breed(breed):
     connection = get_flask_database_connection(app)
     dog_repository = DogRepository(connection)
-    dogs = dog_repository.find_by_breed(dog_breed)
-    return render_template("search_by_breed.html", dogs=dogs)
+    dogs = dog_repository.find_by_breed(breed)
+    return render_template("search_by_breed.html", dogs=dogs, breed=breed)
 
 @app.route("/searchbyname")
 def search_by_name():
