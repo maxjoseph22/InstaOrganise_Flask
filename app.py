@@ -36,11 +36,15 @@ def likes_leaderboard():
 def search_by_breed(dog_breed):
     connection = get_flask_database_connection(app)
     dog_repository = DogRepository(connection)
-    return dog_repository.find_by_breed(dog_breed)
+    dogs = dog_repository.find_by_breed(dog_breed)
+    return render_template("search_by_breed.html", dogs=dogs)
 
-# THIS ISN'T WORKING AS EXPECTED, NOT GETTING AN ERROR BUT THE SERVER ISN'T DISPLAYING THE DOGS WITH MATCHING NAMES. JUST BLANK
+@app.route("/searchbyname")
+def search_by_name():
+    return render_template("search_by_name.html")
+
 @app.route("/dog/<dog_name>")
-def search_by_name(dog_name):
+def search_by_dog_name(dog_name):
     connection = get_flask_database_connection(app)
     dog_repository = DogRepository(connection)
     return dog_repository.find_by_name(dog_name)
