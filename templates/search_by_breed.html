@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Dog</title>
+    <title>Search by Name</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -33,50 +33,21 @@
 </head>
 <body>
     <h1>Search by Breed</h1>
+    <form method="post">
+        <label for="breed_search">Enter Breed Here:</label>
+        <input type="search" id="breed_search" name="breed" required>
+        <input type="submit" value="Search">
+    </form>
+
     <table>
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Name</th>
-                <th>Breed</th>
-                <th>Purebred</th>
-                <th>Mix</th>
-                <th>Age</th>
-                <th>Sex</th>
-                <th>Location</th>
-                <th>Personality</th>
-                <th>Likes</th>
-                <th>Comments</th>
-                <th>Link to Post</th>
-                <th>Video</th>
-                <th>Date Posted</th>
-                <th>Photo URL</th>
-                <th>Breed ID</th>
-                <th>Cross Breed ID</th>
+                <th>Details</th>
             </tr>
         </thead>
         <tbody>
-            {% for dog in dogs %}
-            <tr>
-                <td>{{ dog.id }}</td>
-                <td>{{ dog.name }}</td>
-                <td>{{ dog.breed }}</td>
-                <td>{{ dog.purebreed }}</td>
-                <td>{{ dog.mix }}</td>
-                <td>{{ dog.age }}</td>
-                <td>{{ dog.sex }}</td>
-                <td>{{ dog.location }}</td>
-                <td>{{ dog.personality }}</td>
-                <td>{{ dog.likes }}</td>
-                <td>{{ dog.comments }}</td>
-                <td>{{ dog.link_to_post }}</td>
-                <td>{{ dog.video }}</td>
-                <td>{{ dog.date_posted }}</td>
-                <td>{{ dog.photo }}</td>
-                <td>{{ dog.breed_id }}</td>
-                <td>{{ dog.cross_breed_id }}</td>
-            </tr>
-            {% endfor %}
+            <!-- Results will be displayed here -->
         </tbody>
     </table>
 </body>

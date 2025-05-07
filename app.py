@@ -2,7 +2,7 @@ from flask import Flask
 from lib.dog_repository import DogRepository
 from lib.breed_repository import BreedRepository
 import os
-from flask import Flask, request, render_template, redirect, session
+from flask import Flask, request, render_template, redirect, session, url_for
 from lib.database_connection import get_flask_database_connection
 
 app = Flask(__name__)
@@ -32,12 +32,28 @@ def likes_leaderboard():
     likes = dog_repository.get_likes_popularity()
     return render_template("likes_leaderboard.html", likes=likes)
 
+@app.route("/searchbybreed", methods=["POST", "GET"])
+def search_by_breed():
+    if request.method == 'POST':
+        breed = request.form.get('breed')  # Safely fetch the form data
+        if not breed:
+            return render_template("search_by_breed.html", error="Please enter a breed.")
+
+        connection = get_flask_database_connection(app)
+        dog_repository = DogRepository(connection)
+        dogs = dog_repository.find_by_breed(breed)
+        return render_template("search_by_breed_results.html", dogs=dogs, breed=breed)
+
+    return render_template("search_by_breed.html")
+
+
+
 @app.route("/searchbybreed/<breed>")
-def search_by_breed(breed):
+def search_by_breed_results(breed):
     connection = get_flask_database_connection(app)
     dog_repository = DogRepository(connection)
     dogs = dog_repository.find_by_breed(breed)
-    return render_template("search_by_breed.html", dogs=dogs, breed=breed)
+    return render_template("search_by_breed_results.html", dogs=dogs, breed=breed)
 
 @app.route("/searchbyname")
 def search_by_name():

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Dog</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 50%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <h1>Search by Breed Results</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Breed</th>
+                <th>Purebred</th>
+                <th>Mix</th>
+                <th>Age</th>
+                <th>Sex</th>
+                <th>Location</th>
+                <th>Personality</th>
+                <th>Likes</th>
+                <th>Comments</th>
+                <th>Link to Post</th>
+                <th>Video</th>
+                <th>Date Posted</th>
+                <th>Photo URL</th>
+                <th>Breed ID</th>
+                <th>Cross Breed ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for dog in dogs %}
+            <tr>
+                <td>{{ dog.id }}</td>
+                <td>{{ dog.name }}</td>
+                <td>{{ dog.breed }}</td>
+                <td>{{ dog.purebreed }}</td>
+                <td>{{ dog.mix }}</td>
+                <td>{{ dog.age }}</td>
+                <td>{{ dog.sex }}</td>
+                <td>{{ dog.location }}</td>
+                <td>{{ dog.personality }}</td>
+                <td>{{ dog.likes }}</td>
+                <td>{{ dog.comments }}</td>
+                <td>{{ dog.link_to_post }}</td>
+                <td>{{ dog.video }}</td>
+                <td>{{ dog.date_posted }}</td>
+                <td>{{ dog.photo }}</td>
+                <td>{{ dog.breed_id }}</td>
+                <td>{{ dog.cross_breed_id }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
