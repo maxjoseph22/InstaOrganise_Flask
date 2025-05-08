@@ -63,7 +63,15 @@
                 <td>{{ dog.breed }}</td>
                 <td>{{ dog.purebreed }}</td>
                 <td>{{ dog.mix }}</td>
-                <td>{{ dog.age }}</td>
+                <td>
+                    {% if dog.age == 0 %}
+                        Less than 1 (Puppy!)
+                    {% elif dog.age == None %}
+                        Unknown
+                    {% else %}
+                        {{ dog.age }}
+                    {% endif %}
+                </td>
                 <td>{{ dog.sex }}</td>
                 <td>{{ dog.location }}</td>
                 <td>{{ dog.personality }}</td>
