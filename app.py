@@ -74,6 +74,13 @@ def search_by_dog_name(dog_name):
     dogs = dog_repository.find_by_name(dog_name)
     return render_template("search_by_name_results.html", dogs=dogs, name=dog_name)
 
+@app.route("/searchbydogid/<id>")
+def search_by_dog_id(id):
+    connection = get_flask_database_connection(app)
+    dog_repository = DogRepository(connection)
+    dogs = dog_repository.find(id)
+    return render_template("search_by_name_results.html", dogs=dogs, id=id)
+
 @app.route("/breeds")
 def display_all_breeds():
     connection = get_flask_database_connection(app)
@@ -94,14 +101,6 @@ def display_random_dog():
     dog_repository = DogRepository(connection)
     dogs = dog_repository.random_dog()
     return render_template("random_dog.html", dogs=dogs)
-
-@app.route("/dog")
-def dog():
-    return "<p>Welcome to the dog page!</p>"
-
-@app.route("/dog/<dog_id>")
-def individual_dog(dog_id):
-    return "Welcome to the specific dog page for dog " + str(dog_id)
 
 if __name__ == '__main__':
     app.run(debug=True, host="127.0.0.1", port=5000)

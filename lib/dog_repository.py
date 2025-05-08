@@ -39,12 +39,13 @@ class DogRepository:
     # Retrieve popularity by likes
     def get_likes_popularity(self):
         rows = self._connection.execute(
-            'SELECT name, likes, link_to_post FROM dogs ORDER BY likes DESC'
+            'SELECT name, id, likes, link_to_post FROM dogs ORDER BY likes DESC'
         )
         result = []
         for row in rows:
             result.append({
                 "name": row["name"],
+                "id": row["id"],
                 "likes": row["likes"],
                 "link_to_post": row["link_to_post"]
             })
@@ -66,12 +67,16 @@ class DogRepository:
     # Find a dog by ID
     def find(self, id):
         rows = self._connection.execute('SELECT * FROM dogs WHERE id = %s', [id])
-        row = rows[0]
-        return Dog(
-            row["id"], row["name"], row["breed"], row["purebreed"], row["mix"],
-            row["age"], row["sex"], row["location"], row["personality"],
-            row["likes"], row["comments"], row["link_to_post"], row["video"], row["date_posted"], row["photo"], row["breed_id"]
-        )
+        dogs = []
+        for row in rows:
+            item = Dog(
+                row["id"], row["name"], row["breed"], row["purebreed"], row["mix"],
+                row["age"], row["sex"], row["location"], row["personality"],
+                row["likes"], row["comments"], row["link_to_post"], row["video"], row["date_posted"], row["photo"], row["breed_id"]
+            )
+            dogs.append(item)
+        
+        return dogs
     
     # Find dogs by name
     def find_by_name(self, name):
