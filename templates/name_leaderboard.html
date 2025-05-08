@@ -43,7 +43,9 @@
         <tbody>
             {% for name in names %}
             <tr>
-                <td>{{ name.name }}</td>
+                <td>
+                    <a href="/searchbyname/{{ name.name }}">{{ name.name }}</a>
+                </td>
                 <td>{{ name.count }}</td>
             </tr>
             {% endfor %}

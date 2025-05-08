@@ -43,7 +43,9 @@
         <tbody>
             {% for breed in breeds %}
             <tr>
-                <td>{{ breed.breed }}</td>
+                <td>
+                    <a href="/searchbybreed/{{ breed.breed }}">{{ breed.breed }}</a>
+                </td>
                 <td>{{ breed.count }}</td>
             </tr>
             {% endfor %}
