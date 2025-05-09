@@ -4,6 +4,7 @@ from lib.breed_repository import BreedRepository
 import os
 from flask import Flask, request, render_template, redirect, session, url_for
 from lib.database_connection import get_flask_database_connection
+from urllib.parse import unquote
 
 app = Flask(__name__)
 
@@ -46,12 +47,19 @@ def search_by_breed():
 
     return render_template("search_by_breed.html")
 
-@app.route("/searchbybreed/<breed>")
+@app.route("/searchbybreed/<path:breed>")  # Use <path:> to allow slashes in URL parameters
 def search_by_breed_results(breed):
     connection = get_flask_database_connection(app)
     dog_repository = DogRepository(connection)
-    dogs = dog_repository.find_by_breed(breed)
-    return render_template("search_by_breed_results.html", dogs=dogs, breed=breed)
+
+    # Decode the URL-encoded breed name
+    decoded_breed = unquote(breed)
+    print(f"Encoded breed: {breed}")  # Debugging: Print the received value
+    print(f"Decoded breed: {decoded_breed}")  # Debugging: Print the decoded value
+
+    # Find dogs by the decoded breed name
+    dogs = dog_repository.find_by_breed(decoded_breed)
+    return render_template("search_by_breed_results.html", dogs=dogs, breed=decoded_breed)
 
 @app.route("/searchbyname", methods=["POST", "GET"])
 def search_by_name():
