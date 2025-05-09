@@ -37,7 +37,7 @@
         <thead>
             <tr>
                 <th>Name</th>
-                <th>ID</th>
+                <!-- <th>ID</th> -->
                 <th>Likes</th>
                 <th>Link to Post</th>
             </tr>
@@ -45,10 +45,10 @@
         <tbody>
             {% for like in likes %}
             <tr>
-                <td>{{ like.name }}</td>
                 <td>
-                    <a href="/searchbydogid/{{ like.id }}">{{ like.id }}</a>
+                    <a href="/searchbydogid/{{ like.id }}">{{ like.name }}</a>
                 </td>
+                <!-- <td>{{ like.id }}</td> -->
                 <td>{{ like.likes }}</td>
                 <td>{{ like.link_to_post }}</td>
             </tr>
