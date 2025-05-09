@@ -77,7 +77,13 @@
                 <td>{{ dog.personality }}</td>
                 <td>{{ dog.likes }}</td>
                 <td>{{ dog.comments }}</td>
-                <td>{{ dog.link_to_post }}</td>
+                <td>
+                    {% if dog.link_to_post %}
+                        <a href="{{ dog.link_to_post }}" target="_blank">View Post</a>
+                    {% else %}
+                        No Link
+                    {% endif %}
+                </td>
                 <td>{{ dog.video }}</td>
                 <td>{{ dog.date_posted }}</td>
                 <td>{{ dog.photo }}</td>
