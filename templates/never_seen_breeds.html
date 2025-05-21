@@ -37,18 +37,21 @@
         <thead>
             <tr>
                 <th>Breed Name</th>
-                <th>ID</th>
+                <th></th>
+                <th>Count</th>
             </tr>
         </thead>
         <tbody>
             {% for breed in breeds %}
             <tr>
+                <td>{{ breed.breed_name }}</td>
+                
                 <td>
                     <a href="https://www.google.com/search?q={{ breed.breed_name | urlencode }}" target="_blank">
-                        {{ breed.breed_name }}
+                        Learn more
                     </a>
                 </td>
-                <td>{{ breed.id }}</td>
+                <td>{{ breed.count }}</td>
             </tr>
             {% endfor %}
         </tbody>
