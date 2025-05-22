@@ -44,7 +44,10 @@
         <tbody>
             {% for breed in breeds %}
             <tr>
-                <td>{{ breed.breed_name }}</td>
+                <!-- <td>{{ breed.breed_name }}</td> -->
+                <td>
+                    <a href="/searchbybreed/{{ breed.breed_name | urlencode }}">{{ breed.breed_name }}</a>
+                </td>
                 
                 <td>
                     <a href="https://www.google.com/search?q={{ breed.breed_name | urlencode }}" target="_blank">

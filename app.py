@@ -61,6 +61,13 @@ def search_by_breed_results(breed):
     dogs = dog_repository.find_by_breed(decoded_breed)
     return render_template("search_by_breed_results.html", dogs=dogs, breed=decoded_breed)
 
+@app.route("/viewalldogs")  # Use <path:> to allow slashes in URL parameters
+def view_all_dogs():
+    connection = get_flask_database_connection(app)
+    dog_repository = DogRepository(connection)
+    dogs = dog_repository.all()
+    return render_template("view_all_dogs.html", dogs=dogs)
+
 @app.route("/searchbyname", methods=["POST", "GET"])
 def search_by_name():
     if request.method == 'POST':

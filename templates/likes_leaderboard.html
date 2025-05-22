@@ -50,7 +50,13 @@
                 </td>
                 <!-- <td>{{ like.id }}</td> -->
                 <td>{{ like.likes }}</td>
-                <td>{{ like.link_to_post }}</td>
+                <td>
+                    {% if like.link_to_post %}
+                        <a href="{{ like.link_to_post }}" target="_blank">View Post</a>
+                    {% else %}
+                        No Link
+                    {% endif %}
+                </td>
             </tr>
             {% endfor %}
         </tbody>

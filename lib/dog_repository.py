@@ -13,7 +13,7 @@ class DogRepository:
 
     # Retrieve all dogs
     def all(self):
-        rows = self._connection.execute('SELECT * FROM dogs')
+        rows = self._connection.execute('SELECT * FROM dogs ORDER BY date_posted DESC')
         dogs = []
         for row in rows:
             item = Dog(
