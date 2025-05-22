@@ -71,7 +71,9 @@
                 <td>{{ dog.comments }}</td>
                 <td>
                     {% if dog.link_to_post %}
-                        <a href="{{ dog.link_to_post }}" target="_blank">View Post</a>
+                        <blockquote class="instagram-media" data-instgrm-permalink="{{ dog.link_to_post }}" data-instgrm-version="12">
+                        </blockquote>
+                        <script async defer src="//www.instagram.com/embed.js"></script>
                     {% else %}
                         No Link
                     {% endif %}

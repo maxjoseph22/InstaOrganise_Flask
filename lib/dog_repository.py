@@ -36,6 +36,15 @@ class DogRepository:
             result.append({"breed": row["breed"], "count": row["count"]})
         return result
     
+    def get_rare_breeds(self):
+        rows = self._connection.execute(
+            'SELECT breed, COUNT(*) AS count FROM dogs GROUP BY breed HAVING COUNT(*) IN (1, 2, 3) ORDER BY count ASC'
+        )
+        result = []
+        for row in rows:
+            result.append({"breed": row["breed"], "count": row["count"]})
+        return result
+    
     # Retrieve popularity by likes
     def get_likes_popularity(self):
         rows = self._connection.execute(

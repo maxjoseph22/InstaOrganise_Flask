@@ -110,6 +110,13 @@ def display_never_seen_breeds():
     breeds = breed_repository.all_zeros()
     return render_template("never_seen_breeds.html", breeds=breeds)
 
+@app.route("/rarebreeds")
+def display_rarely_seen_breeds():
+    connection = get_flask_database_connection(app)
+    dog_repository = DogRepository(connection)  
+    breeds = dog_repository.get_rare_breeds()
+    return render_template("rare_breeds.html", breeds=breeds)
+
 @app.route("/randomdog")
 def display_random_dog():
     connection = get_flask_database_connection(app)

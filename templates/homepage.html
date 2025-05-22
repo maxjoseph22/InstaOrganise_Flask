@@ -75,6 +75,7 @@
         <a href="/likesleaderboard">Likes Leaderboard</a>
         <a href="/breeds">All Breeds</a>
         <a href="/neverseen">Never Seen Breeds</a>
+        <a href="/rarebreeds">Rare Breeds</a>
         <a href="/randomdog">Random Dog</a>
         <a href="/searchbyname">Search by Name</a>
         <a href="/searchbybreed">Search by Breed</a>
@@ -94,7 +95,7 @@
             const fallbackTimeout = setTimeout(() => {
                 spinner.style.display = "none";
                 iframe.style.display = "block"; // Show the map after timeout
-            }, 10); // Adjust time as needed
+            }, 1000); // Adjust time as needed
 
             iframe.onload = function () {
                 clearTimeout(fallbackTimeout); // Cancel fallback
