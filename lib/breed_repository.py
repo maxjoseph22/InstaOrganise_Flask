@@ -100,6 +100,7 @@ class BreedRepository:
     # )
     #     return readable_breeds
     
+    
     # Delete a breed entry
     def delete(self, id):
         self._connection.execute('DELETE FROM breeds WHERE id = %s', [id])

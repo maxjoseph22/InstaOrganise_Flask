@@ -117,6 +117,13 @@ def display_rarely_seen_breeds():
     breeds = dog_repository.get_rare_breeds()
     return render_template("rare_breeds.html", breeds=breeds)
 
+@app.route("/rarepurebreeds")
+def display_rarely_seen_purebreeds():
+    connection = get_flask_database_connection(app)
+    dog_repository = DogRepository(connection)  
+    breeds = dog_repository.get_rare_purebreeds()
+    return render_template("rare_purebreeds.html", breeds=breeds)
+
 @app.route("/randomdog")
 def display_random_dog():
     connection = get_flask_database_connection(app)
