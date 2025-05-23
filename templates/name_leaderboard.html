@@ -36,6 +36,7 @@
     <table>
         <thead>
             <tr>
+                <th>Ranking</th>
                 <th>Name</th>
                 <th>Count</th>
             </tr>
@@ -43,6 +44,7 @@
         <tbody>
             {% for name in names %}
             <tr>
+                <td>{{ loop.index }}</td>
                 <td>
                     <a href="/searchbyname/{{ name.name }}">{{ name.name }}</a>
                 </td>

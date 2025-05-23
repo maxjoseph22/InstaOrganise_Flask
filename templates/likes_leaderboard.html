@@ -36,6 +36,7 @@
     <table>
         <thead>
             <tr>
+                <th>Ranking</th>
                 <th>Name</th>
                 <!-- <th>ID</th> -->
                 <th>Likes</th>
@@ -45,6 +46,7 @@
         <tbody>
             {% for like in likes %}
             <tr>
+                <td>{{ loop.index }}</td>
                 <td>
                     <a href="/searchbydogid/{{ like.id }}">{{ like.name }}</a>
                 </td>

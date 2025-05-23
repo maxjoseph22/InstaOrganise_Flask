@@ -36,6 +36,7 @@
     <table>
         <thead>
             <tr>
+                <th>Ranking</th>
                 <th>Breed</th>
                 <th>Count</th>
             </tr>
@@ -43,6 +44,7 @@
         <tbody>
             {% for breed in breeds %}
             <tr>
+                <td>{{ loop.index }}</td>
                 <td>
                     <a href="/searchbybreed/{{ breed.breed | urlencode }}">{{ breed.breed }}</a>
                 </td>
