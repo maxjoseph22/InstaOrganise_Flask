@@ -14,6 +14,24 @@
             text-align: center;
             color: #333;
         }
+        .navbar {
+            display: flex;
+            align-items: center;
+            background-color: #007BFF;
+            padding: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .navbar a {
+            text-decoration: none;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        .navbar a:hover {
+            background-color: #0056b3;
+        }
         table {
             width: 50%;
             margin: 20px auto;
@@ -32,13 +50,15 @@
     </style>
 </head>
 <body>
+    <div class="navbar">
+        <a href="http://127.0.0.1:5000/">The Dogist</a>
+    </div>
     <h1>Likes Leaderboard</h1>
     <table>
         <thead>
             <tr>
                 <th>Ranking</th>
                 <th>Name</th>
-                <!-- <th>ID</th> -->
                 <th>Likes</th>
                 <th>Link to Post</th>
             </tr>
@@ -50,7 +70,6 @@
                 <td>
                     <a href="/searchbydogid/{{ like.id }}">{{ like.name }}</a>
                 </td>
-                <!-- <td>{{ like.id }}</td> -->
                 <td>{{ like.likes }}</td>
                 <td>
                     {% if like.link_to_post %}
