@@ -47,13 +47,35 @@ class DogRepository:
     
     def get_rare_purebreeds(self):
         rows = self._connection.execute(
-            'SELECT breed, COUNT(*) AS count FROM dogs WHERE purebreed = True GROUP BY breed HAVING COUNT(*) IN (1, 2, 3) ORDER BY count ASC'
+             '''
+        SELECT breed, COUNT(*) AS count
+        FROM dogs
+        WHERE breed NOT LIKE '%%/%%' AND breed NOT LIKE '%%mix%%' AND breed NOT LIKE '%%Mix%%'
+        GROUP BY breed
+        ORDER BY count ASC
+        '''
         )
         result = []
         for row in rows:
             result.append({"breed": row["breed"], "count": row["count"]})
         return result
-    
+
+    def get_loveable_mutts(self):
+        rows = self._connection.execute(
+            '''
+        SELECT breed, COUNT(*) AS count
+        FROM dogs
+        WHERE breed LIKE '%%/%%' OR breed LIKE '%%mix%%'
+        GROUP BY breed
+        ORD
+        ER BY count DESC
+        '''
+        )
+        result = []
+        for row in rows:
+            result.append({"breed": row["breed"], "count": row["count"]})
+        return result
+
     # Retrieve popularity by likes
     def get_likes_popularity(self):
         rows = self._connection.execute(
