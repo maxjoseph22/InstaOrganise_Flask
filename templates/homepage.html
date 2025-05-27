@@ -68,6 +68,15 @@
     </style>
 </head>
 <body>
+
+    {% if session %}
+      <h1>Welcome {{session.userinfo.name}}!</h1>
+      <p><a href="/logout">Logout</a></p>
+      <div><pre>{{pretty}}</pre></div>
+  {% else %}
+    <h1>Welcome Guest</h1>
+    <p><a href="/login">Login</a></p>
+  {% endif %}
     
     <div class="navbar">
         <img src="../static/dogist.png"width="60" height="60">
@@ -78,6 +87,7 @@
         <a href="/neverseen">Never Seen Breeds</a>
         <a href="/rarebreeds">Rare Breeds</a>
         <a href="/rarepurebreeds">Rare Purebreeds</a>
+        <a href="/raremutts">Rare Mutts</a>
         <a href="/randomdog">Random Dog</a>
         <a href="/searchbyname">Search by Name</a>
         <a href="/searchbybreed">Search by Breed</a>

@@ -67,8 +67,7 @@ class DogRepository:
         FROM dogs
         WHERE breed LIKE '%%/%%' OR breed LIKE '%%mix%%'
         GROUP BY breed
-        ORD
-        ER BY count DESC
+        ORDER BY count ASC
         '''
         )
         result = []
