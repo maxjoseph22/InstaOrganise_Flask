@@ -68,7 +68,7 @@
     </style>
 </head>
 <body>
-
+<!-- 
     {% if session %}
       <h1>Welcome {{session.userinfo.name}}!</h1>
       <p><a href="/logout">Logout</a></p>
@@ -76,7 +76,7 @@
   {% else %}
     <h1>Welcome Guest</h1>
     <p><a href="/login">Login</a></p>
-  {% endif %}
+  {% endif %} -->
     
     <div class="navbar">
         <img src="../static/dogist.png"width="60" height="60">
@@ -92,6 +92,14 @@
         <a href="/searchbyname">Search by Name</a>
         <a href="/searchbybreed">Search by Breed</a>
         <a href="/viewalldogs">View All Dogs</a>
+        {% if session %}
+        <h5>Welcome {{session.userinfo.name}}!</h5>
+        <p><a href="/logout">Logout</a></p>
+        <!-- <div><pre>{{pretty}}</pre></div> -->
+    {% else %}
+      <h5>Welcome Guest</h5>
+      <p><a href="/login">Login</a></p>
+    {% endif %}
     </div>
     <h1>
         </h1>

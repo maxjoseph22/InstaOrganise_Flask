@@ -38,12 +38,6 @@ def login():
         redirect_uri=url_for("callback", _external=True)
     )
 
-# @app.route("/callback", methods=["GET", "POST"])
-# def callback():
-#     token = oauth.auth0.authorize_access_token()
-#     session["user"] = token
-#     return redirect("/")
-
 @app.route("/callback", methods=["GET", "POST"])
 def callback():
     # Extract token and user info
@@ -91,7 +85,6 @@ def logout():
             quote_via=quote_plus,
         )
     )
-
 
 @app.route("/")
 def homepage_welcome():
