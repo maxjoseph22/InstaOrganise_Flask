@@ -191,6 +191,16 @@ class DogRepository:
     #     for dog in dogs
     # )
     #     return readable_dogs
+
+    # Find dogs by id
+    def find_by_id(self, id):
+        rows = self._connection.execute('SELECT * FROM dogs WHERE id = %s', [id])
+        row = rows[0]
+        return Dog(
+                row["id"], row["name"], row["breed"], row["purebreed"], row["mix"],
+                row["age"], row["sex"], row["location"], row["personality"],
+                row["likes"], row["comments"], row["link_to_post"], row["video"], row["date_posted"], row["photo"], row["breed_id"]
+            )
     
     # Find dogs by age
     def find_by_age(self, age):

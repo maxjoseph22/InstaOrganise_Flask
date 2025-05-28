@@ -236,5 +236,31 @@ def display_random_dog():
     user_id = session["user"] if "user" in session else None
     return render_template("random_dog.html", dogs=dogs, user_id=user_id)
 
+@app.route("/favourites", methods=["GET", "POST"])
+def get_favourites():
+    connection = get_flask_database_connection(app)
+    dog_repository = DogRepository(connection)
+    favourite_dog_repository = FavouriteDogRepository(connection)
+
+    if request.method == "GET":
+        if "user" not in session:
+            return {"success": False, "message": "User not logged in"}, 401
+
+        auth0_user_dict = session["user"]  # Assume Auth0's "sub" is the user_id
+        auth0_id = auth0_user_dict['userinfo']['sub']
+        dog_ids = favourite_dog_repository.all(auth0_id)
+        print(dog_ids)
+        all_favourite_dog_ids = []
+        for dog_id in dog_ids:
+            dog = dog_id['dog_id']
+            all_favourite_dog_ids.append(dog)
+        print(all_favourite_dog_ids)
+        all_dogs = []
+        for id in all_favourite_dog_ids:
+            dog = dog_repository.find_by_id(id)
+            all_dogs.append(dog)
+        print(all_dogs)
+        return render_template("favourites.html", dogs=all_dogs)
+
 if __name__ == '__main__':
     app.run(debug=True, host="127.0.0.1", port=5000)
