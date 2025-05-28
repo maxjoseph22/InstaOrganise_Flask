@@ -1,6 +1,7 @@
 from flask import Flask
 from lib.dog_repository import DogRepository
 from lib.breed_repository import BreedRepository
+from lib.favourite_dog_repository import FavouriteDogRepository
 import os
 from flask import Flask, request, render_template, redirect, session, url_for
 from lib.database_connection import get_flask_database_connection
@@ -209,12 +210,31 @@ def display_rarely_seen_mutts():
     breeds = dog_repository.get_loveable_mutts()
     return render_template("rare_mutts.html", breeds=breeds)
 
-@app.route("/randomdog")
+@app.route("/randomdog", methods=["GET", "POST"])
 def display_random_dog():
     connection = get_flask_database_connection(app)
     dog_repository = DogRepository(connection)
+
+    if request.method == "POST":
+        if "user" not in session:
+            return {"success": False, "message": "User not logged in"}, 401
+
+        auth0_user_dict = session["user"]  # Assume Auth0's "sub" is the user_id
+        auth0_id = auth0_user_dict['userinfo']['sub']
+        dog_id = request.form.get("dog_id")
+
+        if not dog_id:
+            return {"success": False, "message": "Dog ID is required"}, 400
+
+        favourite_repository = FavouriteDogRepository(connection)
+        favourite_repository.add_favourite_dog(auth0_id, dog_id)
+
+        print({"success": True, "message": "Dog favourited successfully!"})
+
+    # Handle GET requests
     dogs = dog_repository.random_dog()
-    return render_template("random_dog.html", dogs=dogs)
+    user_id = session["user"] if "user" in session else None
+    return render_template("random_dog.html", dogs=dogs, user_id=user_id)
 
 if __name__ == '__main__':
     app.run(debug=True, host="127.0.0.1", port=5000)
