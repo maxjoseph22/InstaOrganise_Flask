@@ -249,17 +249,14 @@ def get_favourites():
         auth0_user_dict = session["user"]  # Assume Auth0's "sub" is the user_id
         auth0_id = auth0_user_dict['userinfo']['sub']
         dog_ids = favourite_dog_repository.all(auth0_id)
-        print(dog_ids)
         all_favourite_dog_ids = []
         for dog_id in dog_ids:
             dog = dog_id['dog_id']
             all_favourite_dog_ids.append(dog)
-        print(all_favourite_dog_ids)
         all_dogs = []
         for id in all_favourite_dog_ids:
             dog = dog_repository.find_by_id(id)
             all_dogs.append(dog)
-        print(all_dogs)
         return render_template("favourites.html", dogs=all_dogs)
 
 if __name__ == '__main__':
