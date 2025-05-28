@@ -66,6 +66,7 @@
                 <th>Likes</th>
                 <th>Comments</th>
                 <th>Link to Post</th>
+                <th>Add to Favourites</th>
                 <th>Video</th>
                 <th>Date Posted</th>
                 <th>Photo URL</th>
@@ -103,6 +104,12 @@
                     {% else %}
                         No Link
                     {% endif %}
+                </td>
+                <td>
+                    <form method="post" action="/searchbybreed">
+                        <input type="hidden" name="dog_id" value="{{ dog.id }}">
+                        <button type="submit">❤️ Favourite</button>
+                    </form>
                 </td>
                 <td>{{ dog.video }}</td>
                 <td>{{ dog.date_posted }}</td>

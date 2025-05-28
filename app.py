@@ -229,8 +229,6 @@ def display_random_dog():
         favourite_repository = FavouriteDogRepository(connection)
         favourite_repository.add_favourite_dog(auth0_id, dog_id)
 
-        print({"success": True, "message": "Dog favourited successfully!"})
-
     # Handle GET requests
     dogs = dog_repository.random_dog()
     user_id = session["user"] if "user" in session else None

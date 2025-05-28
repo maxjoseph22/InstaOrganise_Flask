@@ -20,5 +20,9 @@ class FavouriteDogRepository:
         user_id_dict_list = self._connection.execute('SELECT id from users WHERE auth0_id = %s', [auth0_id])
         user_id_dict = user_id_dict_list[0]
         user_id = user_id_dict['id']
-        self._connection.execute('INSERT INTO favourite_dogs (user_id, dog_id) VALUES (%s, %s)', (user_id, dog_id))
-        return f"Favourite dog added for user {user_id}."
+        already_favourited = self._connection.execute('SELECT id from favourite_dogs WHERE user_id = %s AND dog_id = %s', (user_id, dog_id))
+        if already_favourited == []:
+            self._connection.execute('INSERT INTO favourite_dogs (user_id, dog_id) VALUES (%s, %s)', (user_id, dog_id))
+            print(f"Favourite dog added for user {user_id}.")
+        else:
+            print("this dog is already in your favourites!")
