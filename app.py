@@ -217,19 +217,18 @@ def display_random_dog():
 
     if request.method == "POST":
         if "user" not in session:
-            print("redirecting user to log in / create an account page")
-            return oauth.auth0.authorize_redirect(
-                redirect_uri=url_for("callback", _external=True))
-            
+            return {"success": False, "message": "Please log in to add favourites."}, 401
+    
         auth0_user_dict = session["user"]  # Assume Auth0's "sub" is the user_id
         auth0_id = auth0_user_dict['userinfo']['sub']
-        dog_id = request.form.get("dog_id")
-
+        dog_id = request.json.get("dog_id")  # Use JSON to parse the request
+    
         if not dog_id:
             return {"success": False, "message": "Dog ID is required"}, 400
-
+    
         favourite_repository = FavouriteDogRepository(connection)
         favourite_repository.add_favourite_dog(auth0_id, dog_id)
+        return {"success": True, "message": "Dog added to favourites!"}, 200
 
     # Handle GET requests
     dogs = dog_repository.random_dog()

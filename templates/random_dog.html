@@ -50,7 +50,12 @@
     <div class="navbar">
         <a href="http://127.0.0.1:5000/">The Dogist</a>
     </div>
-    <h1>Here's a Random Dog from the Archives</h1>
+    <h1>
+    Here's a Random Dog from the Archives
+    <button class="refresh-button" onclick="location.reload();" style="font-size: 1.5em; border: none; background: none; cursor: pointer;">
+        <span class="refresh-icon">🔄</span>
+    </button>
+</h1>
     <table>
         <thead>
             <tr>
@@ -98,11 +103,46 @@
                     {% endif %}
                 </td>
                 <td>
-                <form method="post" action="/randomdog">
-                    <input type="hidden" name="dog_id" value="{{ dog.id }}">
-                    <button type="submit">❤️ Favourite</button>
-                </form>
+                <button class="favourite-button" data-dog-id="{{ dog.id }}">❤️ Favourite</button>
                 </td>
+                <script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                        document.querySelectorAll(".favourite-button").forEach(button => {
+                            button.addEventListener("click", function () {
+                                const dogId = this.getAttribute("data-dog-id");
+                            
+                                fetch("/randomdog", {
+                                    method: "POST",
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                    },
+                                    body: JSON.stringify({ dog_id: dogId }),
+                                })
+                                .then(response => {
+                                    if (response.status === 401) {
+                                        alert("Please log in to add to favourites.");
+                                        // Redirect to the login page
+                                        window.location.href = "/login";
+                                    } else if (response.ok) {
+                                        return response.json();
+                                    } else {
+                                        throw new Error("An unexpected error occurred.");
+                                    }
+                                })
+                                .then(data => {
+                                    if (data && data.success) {
+                                        alert("Dog added to favourites!");
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error("Error:", error);
+                                    alert("Failed to add dog to favourites.");
+                                });
+                            });
+                        });
+                    });
+                </script>
+                
                 <td>{{ dog.video }}</td>
                 <td>{{ dog.video }}</td>
                 <td>{{ dog.date_posted }}</td>
