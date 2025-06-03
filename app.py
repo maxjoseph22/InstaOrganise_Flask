@@ -217,8 +217,10 @@ def display_random_dog():
 
     if request.method == "POST":
         if "user" not in session:
-            return {"success": False, "message": "User not logged in"}, 401
-
+            print("redirecting user to log in / create an account page")
+            return oauth.auth0.authorize_redirect(
+                redirect_uri=url_for("callback", _external=True))
+            
         auth0_user_dict = session["user"]  # Assume Auth0's "sub" is the user_id
         auth0_id = auth0_user_dict['userinfo']['sub']
         dog_id = request.form.get("dog_id")
