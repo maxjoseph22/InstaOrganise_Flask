@@ -40,8 +40,8 @@
     <a href="/viewalldogs">View All Dogs</a>
     <a href="/favourites">My Favourites</a>
 
-    {% if session.get("userinfo") %}
-    <h5>Welcome {{ session.userinfo.name }}!</h5>
+    {% if g.session_data.session and g.session_data.session.get("userinfo") %}
+    <h5>Welcome {{ g.session_data.session.userinfo.name }}!</h5>
     <p><a href="/logout">Logout</a></p>
     {% else %}
     <h5>Welcome Guest</h5>

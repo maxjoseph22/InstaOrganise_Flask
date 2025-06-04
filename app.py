@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, g
 from lib.dog_repository import DogRepository
 from lib.breed_repository import BreedRepository
 from lib.favourite_dog_repository import FavouriteDogRepository
@@ -22,6 +22,14 @@ app = Flask(__name__)
 app.secret_key = env.get("APP_SECRET_KEY")
 
 oauth = OAuth(app)
+
+@app.before_request
+def load_session_data():
+    user = session.get("user")
+    g.session_data = {
+        "session": user if user else {},
+        "pretty": json.dumps(user, indent=4) if user else "",
+    }
 
 oauth.register(
     "auth0",
@@ -96,21 +104,21 @@ def breed_leaderboard():
     connection = get_flask_database_connection(app)
     dog_repository = DogRepository(connection)
     breeds = dog_repository.get_breed_popularity()
-    return render_template("breed_leaderboard.html", breeds=breeds)
+    return render_template("breed_leaderboard.html", breeds=breeds, **g.session_data)
 
 @app.route("/nameleaderboard")
 def name_leaderboard():
     connection = get_flask_database_connection(app)
     dog_repository = DogRepository(connection)
     names = dog_repository.get_name_popularity()
-    return render_template("name_leaderboard.html", names=names)
+    return render_template("name_leaderboard.html", names=names, **g.session_data)
 
 @app.route("/likesleaderboard")
 def likes_leaderboard():
     connection = get_flask_database_connection(app)
     dog_repository = DogRepository(connection)
     likes = dog_repository.get_likes_popularity()
-    return render_template("likes_leaderboard.html", likes=likes)
+    return render_template("likes_leaderboard.html", likes=likes, **g.session_data)
 
 @app.route("/searchbybreed", methods=["POST", "GET"])
 def search_by_breed():
@@ -122,9 +130,9 @@ def search_by_breed():
         connection = get_flask_database_connection(app)
         dog_repository = DogRepository(connection)
         dogs = dog_repository.find_by_breed(breed)
-        return render_template("search_by_breed_results.html", dogs=dogs, breed=breed)
+        return render_template("search_by_breed_results.html", dogs=dogs, breed=breed, **g.session_data)
 
-    return render_template("search_by_breed.html")
+    return render_template("search_by_breed.html", **g.session_data)
 
 @app.route("/searchbybreed/<path:breed>")  # Use <path:> to allow slashes in URL parameters
 def search_by_breed_results(breed):
@@ -138,14 +146,14 @@ def search_by_breed_results(breed):
 
     # Find dogs by the decoded breed name
     dogs = dog_repository.find_by_breed(decoded_breed)
-    return render_template("search_by_breed_results.html", dogs=dogs, breed=decoded_breed)
+    return render_template("search_by_breed_results.html", dogs=dogs, breed=decoded_breed, **g.session_data)
 
 @app.route("/viewalldogs")  # Use <path:> to allow slashes in URL parameters
 def view_all_dogs():
     connection = get_flask_database_connection(app)
     dog_repository = DogRepository(connection)
     dogs = dog_repository.all()
-    return render_template("view_all_dogs.html", dogs=dogs)
+    return render_template("view_all_dogs.html", dogs=dogs, **g.session_data)
 
 @app.route("/searchbyname", methods=["POST", "GET"])
 def search_by_name():
@@ -157,58 +165,58 @@ def search_by_name():
         connection = get_flask_database_connection(app)
         dog_repository = DogRepository(connection)
         dogs = dog_repository.find_by_name(name)
-        return render_template("search_by_name_results.html", dogs=dogs, name=name)
+        return render_template("search_by_name_results.html", dogs=dogs, name=name, **g.session_data)
 
-    return render_template("search_by_name.html")
+    return render_template("search_by_name.html", **g.session_data)
 
 @app.route("/searchbyname/<dog_name>")
 def search_by_dog_name(dog_name):
     connection = get_flask_database_connection(app)
     dog_repository = DogRepository(connection)
     dogs = dog_repository.find_by_name(dog_name)
-    return render_template("search_by_name_results.html", dogs=dogs, name=dog_name)
+    return render_template("search_by_name_results.html", dogs=dogs, name=dog_name, **g.session_data)
 
 @app.route("/searchbydogid/<id>")
 def search_by_dog_id(id):
     connection = get_flask_database_connection(app)
     dog_repository = DogRepository(connection)
     dogs = dog_repository.find(id)
-    return render_template("search_by_name_results.html", dogs=dogs, id=id)
+    return render_template("search_by_name_results.html", dogs=dogs, id=id, **g.session_data)
 
 @app.route("/breeds")
 def display_all_breeds():
     connection = get_flask_database_connection(app)
     breed_repository = BreedRepository(connection)
     breeds = breed_repository.get_breed_alphabetically()
-    return render_template("alphabetical_breeds.html", breeds=breeds)
+    return render_template("alphabetical_breeds.html", breeds=breeds, **g.session_data)
         
 @app.route("/neverseen")
 def display_never_seen_breeds():
     connection = get_flask_database_connection(app)
     breed_repository = BreedRepository(connection)  
     breeds = breed_repository.all_zeros()
-    return render_template("never_seen_breeds.html", breeds=breeds)
+    return render_template("never_seen_breeds.html", breeds=breeds, **g.session_data)
 
 @app.route("/rarebreeds")
 def display_rarely_seen_breeds():
     connection = get_flask_database_connection(app)
     dog_repository = DogRepository(connection)  
     breeds = dog_repository.get_rare_breeds()
-    return render_template("rare_breeds.html", breeds=breeds)
+    return render_template("rare_breeds.html", breeds=breeds, **g.session_data)
 
 @app.route("/rarepurebreeds")
 def display_rarely_seen_purebreeds():
     connection = get_flask_database_connection(app)
     dog_repository = DogRepository(connection)  
     breeds = dog_repository.get_rare_purebreeds()
-    return render_template("rare_purebreeds.html", breeds=breeds)
+    return render_template("rare_purebreeds.html", breeds=breeds, **g.session_data)
 
 @app.route("/raremutts")
 def display_rarely_seen_mutts():
     connection = get_flask_database_connection(app)
     dog_repository = DogRepository(connection) 
     breeds = dog_repository.get_loveable_mutts()
-    return render_template("rare_mutts.html", breeds=breeds)
+    return render_template("rare_mutts.html", breeds=breeds, **g.session_data)
 
 @app.route("/randomdog", methods=["GET", "POST"])
 def display_random_dog():
@@ -233,7 +241,7 @@ def display_random_dog():
     # Handle GET requests
     dogs = dog_repository.random_dog()
     user_id = session["user"] if "user" in session else None
-    return render_template("random_dog.html", dogs=dogs, user_id=user_id, session=session.get('user'), pretty=json.dumps(session.get('user'), indent=4))
+    return render_template("random_dog.html", dogs=dogs, user_id=user_id, **g.session_data)
 
 @app.route("/favourites", methods=["GET", "POST"])
 def get_favourites():
@@ -256,7 +264,7 @@ def get_favourites():
         for id in all_favourite_dog_ids:
             dog = dog_repository.find_by_id(id)
             all_dogs.append(dog)
-        return render_template("favourites.html", dogs=all_dogs)
+        return render_template("favourites.html", dogs=all_dogs, **g.session_data)
 
 if __name__ == '__main__':
     app.run(debug=True, host="127.0.0.1", port=5000)
