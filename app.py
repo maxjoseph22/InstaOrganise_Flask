@@ -233,7 +233,7 @@ def display_random_dog():
     # Handle GET requests
     dogs = dog_repository.random_dog()
     user_id = session["user"] if "user" in session else None
-    return render_template("random_dog.html", dogs=dogs, user_id=user_id)
+    return render_template("random_dog.html", dogs=dogs, user_id=user_id, session=session.get('user'), pretty=json.dumps(session.get('user'), indent=4))
 
 @app.route("/favourites", methods=["GET", "POST"])
 def get_favourites():

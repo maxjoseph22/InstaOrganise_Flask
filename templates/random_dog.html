@@ -7,24 +7,11 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            margin: 0;
+            padding: 0;
             background-color: #f9f9f9;
         }
-        .navbar {
-            display: flex;
-            align-items: center;
-            background-color: #007BFF;
-            padding: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        .navbar a {
-            text-decoration: none;
-            color: white;
-            font-size: 20px;
-            font-weight: bold;
-            padding: 5px 10px;
-            border-radius: 5px;
-        }
+        
         h1 {
             text-align: center;
             color: #333;
@@ -47,9 +34,7 @@
     </style>
 </head>
 <body>
-    <div class="navbar">
-        <a href="http://127.0.0.1:5000/">The Dogist</a>
-    </div>
+    {% include "navbar.html" %}  <!-- Include the navbar here -->
     <h1>
     Here's a Random Dog from the Archives
     <button class="refresh-button" onclick="location.reload();" style="font-size: 1.5em; border: none; background: none; cursor: pointer;">

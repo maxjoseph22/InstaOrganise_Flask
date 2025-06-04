@@ -9,7 +9,7 @@ class FavouriteDogRepository:
         user_id_dict_list = self._connection.execute('SELECT id from users WHERE auth0_id = %s', [auth0_id])
         user_id_dict = user_id_dict_list[0]
         user_id = user_id_dict['id']
-        favourite_dog_ids = self._connection.execute('SELECT dog_id FROM favourite_dogs WHERE user_id = %s', [user_id])
+        favourite_dog_ids = self._connection.execute('SELECT dog_id FROM favourite_dogs WHERE user_id = %s ORDER BY created_at DESC', [user_id])
         return favourite_dog_ids
     
     def delete(self, id):

@@ -1,0 +1,46 @@
+<style>
+    .navbar {
+        display: flex;
+        justify-content: center;
+        background-color: #007BFF;
+        padding: 10px 0;
+    }
+    .navbar a {
+        color: white;
+        text-decoration: none;
+        margin: 0 10px;
+        padding: 10px 15px;
+        border-radius: 5px;
+        background-color: #0056b3;
+        font-size: 14px;
+        transition: background-color 0.3s ease;
+    }
+    .navbar a:hover {
+        background-color: #00408a;
+    }
+</style>
+
+<div class="navbar">
+    <img src="../static/dogist.png" width="60" height="60">
+    <a href="/breedleaderboard">Breed Leaderboard</a>
+    <a href="/nameleaderboard">Name Leaderboard</a>
+    <a href="/likesleaderboard">Likes Leaderboard</a>
+    <a href="/breeds">All Breeds</a>
+    <a href="/neverseen">Never Seen Breeds</a>
+    <a href="/rarebreeds">Rare Breeds</a>
+    <a href="/rarepurebreeds">Rare Purebreeds</a>
+    <a href="/raremutts">Rare Mutts</a>
+    <a href="/randomdog">Random Dog</a>
+    <a href="/searchbyname">Search by Name</a>
+    <a href="/searchbybreed">Search by Breed</a>
+    <a href="/viewalldogs">View All Dogs</a>
+    <a href="/favourites">My Favourites</a>
+
+    {% if session.get("userinfo") %}
+    <h5>Welcome {{ session.userinfo.name }}!</h5>
+    <p><a href="/logout">Logout</a></p>
+    {% else %}
+    <h5>Welcome Guest</h5>
+    <p><a href="/login">Login</a></p>
+    {% endif %}
+</div>
