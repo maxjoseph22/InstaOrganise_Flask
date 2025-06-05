@@ -1,6 +1,7 @@
 from flask import Flask, g
 from lib.dog_repository import DogRepository
 from lib.breed_repository import BreedRepository
+from lib.connection_repository import ConnectionRepository
 from lib.favourite_dog_repository import FavouriteDogRepository
 import os
 from flask import Flask, request, render_template, redirect, session, url_for
@@ -267,6 +268,22 @@ def get_favourites():
             dog = dog_repository.find_by_id(id)
             all_dogs.append(dog)
         return render_template("favourites.html", dogs=all_dogs, **g.session_data)
+    
+@app.route("/connections", methods=["GET", "POST"])
+def get_connections():
+    connection = get_flask_database_connection(app)
+    connection_repository = ConnectionRepository(connection)
+
+    if request.method == "GET":
+        if "user" not in session:
+            return oauth.auth0.authorize_redirect(
+            redirect_uri=url_for("callback", _external=True)
+            )
+
+        auth0_user_dict = session["user"]  # Assume Auth0's "sub" is the user_id
+        auth0_id = auth0_user_dict['userinfo']['sub']
+        connections = connection_repository.all(auth0_id)
+        return render_template("connections.html", connections=connections, **g.session_data)
 
 if __name__ == '__main__':
     app.run(debug=True, host="127.0.0.1", port=5000)

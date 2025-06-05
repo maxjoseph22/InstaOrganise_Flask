@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connections</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 50%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    {% include "navbar.html" %}
+    <h1>Connections</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>User_ID_1</th>
+                <th>User_ID_2</th>
+                <th>Created At</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for connection in connections %}
+            <tr>
+                <td>{{ connection.id }}</td>
+                <td>{{ connection.user_id_1 }}</td>
+                <td>{{ connection.user_id_2 }}</td>
+                <td>{{ connection.created_at }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
