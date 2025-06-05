@@ -18,3 +18,13 @@ CREATE TABLE favourite_dogs (
     on delete cascade,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE connections (
+    id SERIAL PRIMARY KEY,
+    user_id_1 INT NOT NULL,
+    user_id_2 INT NOT NULL,        
+    created_at TIMESTAMP DEFAULT NOW(),
+    FOREIGN KEY (user_id_1) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id_2) REFERENCES users(id) ON DELETE CASCADE,
+    CONSTRAINT unique_connection UNIQUE (user_id_1, user_id_2)
+);
