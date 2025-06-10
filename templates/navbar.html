@@ -14,38 +14,98 @@
         background-color: #0056b3;
         font-size: 14px;
         transition: background-color 0.3s ease;
+        box-sizing: border-box; /* Ensure consistent sizing */
     }
     .navbar a:hover {
         background-color: #00408a;
+    }
+    .dropdown {
+        position: relative;
+        display: inline-block;
+        margin: 0 10px; /* Add spacing like regular buttons */
+    }
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+        border-radius: 5px; /* Match button style */
+        padding: 5px 0; /* Add some padding to the dropdown container */
+    }
+    .dropdown-content a {
+        color: black;
+        padding: 10px 15px; /* Match padding of regular buttons */
+        margin: 5px 0; /* Add spacing between dropdown items */
+        text-decoration: none;
+        display: block;
+        font-size: 14px;
+        box-sizing: border-box; /* Ensure consistent sizing */
+        border-radius: 5px;
+    }
+    .dropdown-content a:hover {
+        background-color: #f1f1f1;
+    }
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+    .dropdown:hover .dropbtn {
+        background-color: #00408a;
+    }
+    .dropbtn {
+        background-color: #0056b3;
+        color: white;
+        padding: 10px 15px;
+        font-size: 14px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        box-sizing: border-box; /* Ensure consistent sizing */
     }
 </style>
 
 <div class="navbar">
     <form action="/" method="get" style="display: inline;">
-    <button type="submit" style="border: none; background: none; padding: 0; cursor: pointer;">
-        <img src="../static/dogist.png" width="60" height="60" alt="Dogist Logo">
-    </button>
-</form>
-    <a href="/breedleaderboard">Breed Leaderboard</a>
-    <a href="/nameleaderboard">Name Leaderboard</a>
-    <a href="/likesleaderboard">Likes Leaderboard</a>
+        <button type="submit" style="border: none; background: none; padding: 0; cursor: pointer;">
+            <img src="../static/dogist.png" width="60" height="60" alt="Dogist Logo">
+        </button>
+    </form>
+    <div class="dropdown">
+        <button class="dropbtn">Search</button>
+        <div class="dropdown-content">
+            <a href="/searchbyname">Search by Name</a>
+            <a href="/searchbybreed">Search by Breed</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Leaderboards</button>
+        <div class="dropdown-content">
+            <a href="/breedleaderboard">Breed Leaderboard</a>
+            <a href="/nameleaderboard">Name Leaderboard</a>
+            <a href="/likesleaderboard">Likes Leaderboard</a>
+        </div>
+    </div>
     <a href="/breeds">All Breeds</a>
-    <a href="/neverseen">Never Seen Breeds</a>
-    <a href="/rarebreeds">Rare Breeds</a>
-    <a href="/rarepurebreeds">Rare Purebreeds</a>
-    <a href="/raremutts">Rare Mutts</a>
+    <div class="dropdown">
+        <button class="dropbtn">Rare Categories</button>
+        <div class="dropdown-content">
+            <a href="/rarepurebreeds">Rare Purebreeds</a>
+            <a href="/raremutts">Rare Mutts</a>
+            <a href="/rarebreeds">Rare Breeds</a>
+            <a href="/neverseen">Never Seen Breeds</a>
+        </div>
+    </div>
     <a href="/randomdog">Random Dog</a>
-    <a href="/searchbyname">Search by Name</a>
-    <a href="/searchbybreed">Search by Breed</a>
     <a href="/viewalldogs">View All Dogs</a>
     <a href="/favourites">My Favourites</a>
     <a href="/connections">My Connections</a>
 
     {% if g.session_data.session and g.session_data.session.get("userinfo") %}
-    <h5>Welcome {{ g.session_data.session.userinfo.name }}!</h5>
-    <p><a href="/logout">Logout</a></p>
+        <h5>Welcome {{ g.session_data.session.userinfo.name }}!</h5>
+        <p><a href="/logout">Logout</a></p>
     {% else %}
-    <h5>Welcome Guest</h5>
-    <p><a href="/login">Login</a></p>
+        <h5>Welcome Guest</h5>
+        <p><a href="/login">Login</a></p>
     {% endif %}
 </div>
