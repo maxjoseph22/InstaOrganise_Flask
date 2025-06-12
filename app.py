@@ -249,6 +249,8 @@ def get_favourites():
     connection = get_flask_database_connection(app)
     dog_repository = DogRepository(connection)
     favourite_dog_repository = FavouriteDogRepository(connection)
+    auth0_user_dict = session["user"]
+    auth0_id = auth0_user_dict['userinfo']['sub']
 
     if request.method == "GET":
         if "user" not in session:
@@ -256,8 +258,6 @@ def get_favourites():
             redirect_uri=url_for("callback", _external=True)
             )
 
-        auth0_user_dict = session["user"]  # Assume Auth0's "sub" is the user_id
-        auth0_id = auth0_user_dict['userinfo']['sub']
         dog_ids = favourite_dog_repository.all(auth0_id)
         all_favourite_dog_ids = []
         for dog_id in dog_ids:
@@ -269,6 +269,11 @@ def get_favourites():
             all_dogs.append(dog)
         return render_template("favourites.html", dogs=all_dogs, **g.session_data)
     
+    if request.method == "POST":
+        dog_id = request.form.get('dog_id')
+        favourite_dog_repository.delete_by_dog_id_and_user(auth0_id, dog_id)
+        return redirect(url_for('get_favourites'))
+        
 @app.route("/connections", methods=["GET", "POST"])
 def get_connections():
     connection = get_flask_database_connection(app)

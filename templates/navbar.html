@@ -86,7 +86,14 @@
             <a href="/likesleaderboard">Likes Leaderboard</a>
         </div>
     </div>
-    <a href="/breeds">All Breeds</a>
+    <div class="dropdown">
+        <button class="dropbtn">Dogs</button>
+        <div class="dropdown-content">
+        <a href="/breeds">All Breeds</a>
+        <a href="/randomdog">Random Dog</a>
+        <a href="/viewalldogs">View All Dogs</a>
+        </div>
+    </div>
     <div class="dropdown">
         <button class="dropbtn">Rare Categories</button>
         <div class="dropdown-content">
@@ -96,10 +103,13 @@
             <a href="/neverseen">Never Seen Breeds</a>
         </div>
     </div>
-    <a href="/randomdog">Random Dog</a>
-    <a href="/viewalldogs">View All Dogs</a>
-    <a href="/favourites">My Favourites</a>
-    <a href="/connections">My Connections</a>
+    <div class="dropdown">
+        <button class="dropbtn">My Stuff</button>
+        <div class="dropdown-content">
+            <a href="/favourites">My Favourites</a>
+            <a href="/connections">My Connections</a>
+            </div>
+    </div>
 
     {% if g.session_data.session and g.session_data.session.get("userinfo") %}
         <h5>Welcome {{ g.session_data.session.userinfo.name }}!</h5>

@@ -53,6 +53,7 @@
                 <th>Video</th>
                 <th>Date Posted</th>
                 <th>Photo URL</th>
+                <th>Remove from Favourites</th>
                 <th>Breed ID</th>
                 <th>Cross Breed ID</th>
             </tr>
@@ -87,6 +88,12 @@
                     {% else %}
                         No Link
                     {% endif %}
+                </td>
+                <td>
+                    <form method="POST" action="/favourites" style="display: inline;">
+                        <input type="hidden" name="dog_id" value="{{ dog.id }}">
+                        <button type="submit" class="remove-favourite-button">🗑️ Remove from Favourites</button>
+                    </form>
                 </td>
                 <td>{{ dog.video }}</td>
                 <td>{{ dog.date_posted }}</td>
