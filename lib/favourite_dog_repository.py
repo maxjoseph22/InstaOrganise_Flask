@@ -12,8 +12,11 @@ class FavouriteDogRepository:
         favourite_dog_ids = self._connection.execute('SELECT dog_id FROM favourite_dogs WHERE user_id = %s ORDER BY created_at DESC', [user_id])
         return favourite_dog_ids
     
-    def delete(self, id):
-        self._connection.execute('DELETE FROM favourite_dogs WHERE id = %s', [id])
+    def delete_by_dog_id_and_user(self, auth0_id, dog_id):
+        user_id_dict_list = self._connection.execute('SELECT id from users WHERE auth0_id = %s', [auth0_id])
+        user_id_dict = user_id_dict_list[0]
+        user_id = user_id_dict['id']
+        self._connection.execute('DELETE FROM favourite_dogs WHERE user_id = %s AND dog_id = %s', [user_id, dog_id])
         return None
     
     def add_favourite_dog(self, auth0_id, dog_id):
