@@ -219,6 +219,7 @@ def display_rarely_seen_mutts():
     breeds = dog_repository.get_loveable_mutts()
     return render_template("rare_mutts.html", breeds=breeds, **g.session_data)
 
+
 @app.route("/randomdog", methods=["GET", "POST"])
 def display_random_dog():
     connection = get_flask_database_connection(app)
